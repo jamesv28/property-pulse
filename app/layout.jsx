@@ -1,5 +1,6 @@
 import React from "react";
 import "@/assets/styles/globals.css";
+// rafce - snipet shortcut
 
 export const metadata = {
   title: "Property Pulse | Find the best property",
