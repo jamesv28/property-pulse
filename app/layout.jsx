@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "@/components/Navbar";
 import "@/assets/styles/globals.css";
 // rafce - snipet shortcut
 
@@ -7,11 +8,13 @@ export const metadata = {
   escription: "Find the best rental property",
   keywords: "rental, find rentals, find properties",
 };
+
 const MainLayout = ({ children }) => {
   return (
     <html lang="en">
       <body>
-        <div>{children}</div>
+        <Navbar />
+        <main>{children}</main>
       </body>
     </html>
   );
