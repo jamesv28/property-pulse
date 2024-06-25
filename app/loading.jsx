@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import ClipLoader from "react-spinners/ClipLoader";
-
+// mongodb+srv://jvolmert29:james123@propertypulse.fetivjg.mongodb.net/?retryWrites=true&w=majority&appName=PropertyPulse
 const override = {
   display: "block",
   margin: "250px auto",
