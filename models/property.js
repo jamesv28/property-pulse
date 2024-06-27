@@ -9,7 +9,7 @@ const PropertySchema = new Schema(
     },
     name: {
       type: String,
-      type: String,
+      required: true,
     },
     type: {
       type: String,
@@ -28,7 +28,7 @@ const PropertySchema = new Schema(
       state: {
         type: String,
       },
-      zipCode: {
+      zipcode: {
         type: String,
       },
     },
@@ -42,7 +42,7 @@ const PropertySchema = new Schema(
     },
     square_feet: {
       type: Number,
-      requierd: true,
+      required: true,
     },
     amenities: [
       {
@@ -56,7 +56,7 @@ const PropertySchema = new Schema(
       weekly: {
         type: Number,
       },
-      monther: {
+      monthly: {
         type: Number,
       },
     },
@@ -71,11 +71,15 @@ const PropertySchema = new Schema(
         type: String,
       },
     },
-    images: [
-      {
-        type: String,
+    // NOTE: Limit the user to a maximum of 4 images
+    images: {
+      type: [String],
+      validate: {
+        validator: (v) => v.length <= 4,
+        message: (props) =>
+          `The images array can contain a maximum of 4 images, but got ${props.value.length}`,
       },
-    ],
+    },
     is_featured: {
       type: Boolean,
       default: false,
@@ -86,6 +90,6 @@ const PropertySchema = new Schema(
   }
 );
 
-const Property = models.property || model("Property", PropertySchema);
+const Property = models.Property || model("Property", PropertySchema);
 
 export default Property;
