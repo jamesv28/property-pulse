@@ -27,7 +27,7 @@ const PropertyAddForm = () => {
       email: "james@gmail.com",
       phone: "",
     },
-    photos: [],
+    images: [],
   });
 
   const handleChange = (e) => {
@@ -51,8 +51,39 @@ const PropertyAddForm = () => {
       }));
     }
   };
-  const handleAmenitiesChange = () => {};
-  const handleImageChange = () => {};
+  const handleAmenitiesChange = (e) => {
+    const { value, checked } = e.target;
+
+    const updatedAmenities = [...fields.amenities];
+
+    if (checked) {
+      updatedAmenities.push(value);
+    } else {
+      const index = updatedAmenities.indexOf(value);
+      if (index !== -1) {
+        updatedAmenities.splice(index, 1);
+      }
+    }
+    setFields((prevFields) => ({
+      ...prevFields,
+      amenities: updatedAmenities,
+    }));
+  };
+  const handleImageChange = (e) => {
+    const { files } = e.target;
+    console.log("files", files);
+
+    const updatedImages = [...fields.images];
+
+    for (const file of files) {
+      updatedImages.push(file);
+    }
+
+    setFields((prevFields) => ({
+      ...prevFields,
+      images: updatedImages,
+    }));
+  };
 
   useEffect(() => {
     setMounted(true);
