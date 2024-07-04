@@ -3,6 +3,7 @@ import Link from "next/link";
 import PropertyHeader from "@/components/PropertyHeader";
 import PropertyDetails from "@/components/PropertyDetails";
 import Spinner from "@/components/Spinner";
+import PropertyImages from "@/components/PropertyImages";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { fetchProperty } from "@/utils/request";
@@ -142,6 +143,7 @@ const SinglePropertyPage = () => {
               </div>
             </div>
           </section>
+          <PropertyImages images={property.images} />
         </>
       )}
       ;

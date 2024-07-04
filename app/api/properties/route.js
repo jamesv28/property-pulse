@@ -108,6 +108,7 @@ export const POST = async (request) => {
     //   }
     // );
   } catch (err) {
+    console.log(`process api key`, process.env.CLOUDINARY_API_KEY);
     return new Response(`Failed to load property: ${err}`, {
       status: 500,
     });
