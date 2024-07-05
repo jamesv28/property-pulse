@@ -4,27 +4,27 @@ import { useState, useEffect } from "react";
 const PropertyAddForm = () => {
   const [mounted, setMounted] = useState(false);
   const [fields, setFields] = useState({
-    type: "Apartment",
-    name: "Test Property",
+    type: "",
+    name: "",
     description: "",
     location: {
       street: "",
-      city: "Test City",
-      state: "Test State",
+      city: "",
+      state: "",
       zipcode: "",
     },
-    beds: 3,
-    baths: 2,
-    square_feet: "1000",
+    beds: 0,
+    baths: 0,
+    square_feet: "",
     amenities: [],
     rates: {
       weekly: "",
-      monthly: "2000",
+      monthly: "",
       nightly: "",
     },
     seller_info: {
       name: "",
-      email: "james@gmail.com",
+      email: "",
       phone: "",
     },
     images: [],
@@ -36,7 +36,6 @@ const PropertyAddForm = () => {
     // Check if nested property
     if (name.includes(".")) {
       const [outerKey, innerKey] = name.split(".");
-      console.log(outerKey, innerKey);
       setFields((prevFields) => ({
         ...prevFields,
         [outerKey]: {
@@ -71,7 +70,6 @@ const PropertyAddForm = () => {
   };
   const handleImageChange = (e) => {
     const { files } = e.target;
-    console.log("files", files);
 
     const updatedImages = [...fields.images];
 
@@ -261,7 +259,7 @@ const PropertyAddForm = () => {
                 name="amenities"
                 value="Wifi"
                 className="mr-2"
-                checked={fields.amenities.includes("wifi")}
+                checked={fields.amenities.includes("Wifi")}
                 onChange={handleAmenitiesChange}
               />
               <label htmlFor="amenity_wifi">Wifi</label>
