@@ -99,7 +99,25 @@ const PropertyEditForm = () => {
     };
     fetchPropertyData();
   }, []);
-  const handleSubmit = async () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData(e.target);
+      const res = await fetch(`/api/properties/${id}`, {
+        method: "PUT",
+        body: formData,
+      });
+      if (res.status == 200) {
+        router.push(`/properties/${id}`);
+      } else if (res.status == 401 || res.status == 403) {
+        toast.error("permission denied");
+      } else {
+        toast.error("Something went wrong");
+      }
+    } catch (err) {
+      toast.error("Error occurred: ", err);
+    }
+  };
   return (
     mounted &&
     !loading && (
