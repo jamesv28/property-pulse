@@ -43,7 +43,7 @@ const PropertyMap = ({ property }) => {
         const { lat, lng } = res.results[0].geometry.location;
 
         setLat(lat);
-        setLng(lng);
+        setLong(lng);
         setViewport({
           ...viewport,
           latitude: lat,
