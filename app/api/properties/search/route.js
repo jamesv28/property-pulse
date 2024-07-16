@@ -1,18 +1,21 @@
 import connectDB from "@/config/database";
 import Property from "@/models/property";
 
-// api/properties/search
+// NOTE: here we need to send back a Content-Type: application/json response
+// header rather than a text/plain header.
 
-export const Get = async (request) => {
+// GET /api/properties/search
+export const GET = async (request) => {
   try {
     await connectDB();
+
     const { searchParams } = new URL(request.url);
     const location = searchParams.get("location");
     const propertyType = searchParams.get("propertyType");
 
     const locationPattern = new RegExp(location, "i");
-    console.log("location", location);
 
+    // Match location pattern against database fields
     let query = {
       $or: [
         { name: locationPattern },
@@ -24,6 +27,7 @@ export const Get = async (request) => {
       ],
     };
 
+    // Only check for property if its not 'All'
     if (propertyType && propertyType !== "All") {
       const typePattern = new RegExp(propertyType, "i");
       query.type = typePattern;
@@ -31,23 +35,9 @@ export const Get = async (request) => {
 
     const properties = await Property.find(query);
 
-    return new Response(
-      JSON.stringify({
-        message: "Success",
-      }),
-      {
-        status: 200,
-      }
-    );
-  } catch (err) {
-    console.log("err", err);
-    return new Response(
-      JSON.stringify({
-        message: "failure",
-      }),
-      {
-        status: 500,
-      }
-    );
+    return Response.json(properties);
+  } catch (error) {
+    console.log(error);
+    return new Response("Something went wrong", { status: 500 });
   }
 };
