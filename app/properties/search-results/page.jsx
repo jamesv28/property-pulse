@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import PropertyCard from "@/components/PropertyCard";
 import Spinner from "@/components/Spinner";
+import PropertySearchbar from "@/components/PropertySearchbar";
 
 const SearchResultsPage = () => {
   const searchParams = useSearchParams();
@@ -41,7 +42,9 @@ const SearchResultsPage = () => {
   return (
     <>
       <section className="bg-blue-700 py-4">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col items-start sm:px-6 lg:px-8"></div>
+        <div className="max-w-7xl mx-auto px-4 flex flex-col items-start sm:px-6 lg:px-8">
+          <PropertySearchbar />
+        </div>
       </section>
       {loading ? (
         <Spinner loading={loading} />
