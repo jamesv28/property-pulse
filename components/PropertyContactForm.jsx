@@ -8,17 +8,42 @@ const PropertyContactForm = ({ property }) => {
   const [phone, setPhone] = useState("");
   const [wasSubmitted, setWasSubmitted] = useState(false);
   const [message, setMessage] = useState("");
-  const data = {
-    name,
-    email,
-    phone,
-    message,
-    recipient: property.owner,
-    property: property._id,
-  };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("data", data);
+    const data = {
+      name,
+      email,
+      phone,
+      message,
+      recipient: property.owner,
+      property: property._id,
+    };
+    try {
+      const res = await fetch("/api/messages", {
+        method: "POST",
+        header: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (res.status == 200) {
+        toast.success("Message sent successfully");
+        setWasSubmitted(true);
+      } else if (res.status == 400 || res.status == 401) {
+        toast.error(data.message);
+      } else {
+        toast.error("Error sending form");
+      }
+    } catch (err) {
+      console.log("Something happeneed: ", err);
+      toast.error(`Error sending form: ${err}`);
+    } finally {
+      setName("");
+      setEmail("");
+      setPhone("");
+      setMessage("");
+    }
     setWasSubmitted(true);
     toast.success("Message was sent");
   };
