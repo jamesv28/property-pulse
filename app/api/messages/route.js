@@ -57,3 +57,34 @@ export const POST = async (request) => {
     );
   }
 };
+
+export const GET = async (request) => {
+  try {
+    await connectDB();
+    const sessionsUser = await getSessionUser();
+
+    if (!sessionsUser || !sessionsUser.user) {
+      return new Response(JSON.stringify("User ID is required"), {
+        status: 401,
+      });
+    }
+
+    const { userId } = sessionsUser;
+    const messages = await Message.find({ recipient: userId })
+      .populate("sender", "username")
+      .populate("property", "name");
+
+    return new Response(JSON.stringify(messages), {
+      status: 200,
+    });
+  } catch (err) {
+    return new Response(
+      JSON.stringify({
+        message: err,
+      }),
+      {
+        status: 500,
+      }
+    );
+  }
+};
