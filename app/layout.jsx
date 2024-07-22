@@ -6,6 +6,8 @@ import { ToastContainer } from "react-toastify";
 import { GlobalProvider } from "@/contexts/global.context";
 import "react-toastify/dist/ReactToastify.css";
 import "@/assets/styles/globals.css";
+import "photoswipe/dist/photoswipe.css";
+
 // rafce - snipet shortcut
 
 export const metadata = {
